@@ -19,7 +19,7 @@ export class AuthService {
     }
     return null;
   }
-
+/*
   async login(loginDto: LoginDto) {
     const user = await this.validateUser(loginDto.email, loginDto.password);
     if (!user) {
@@ -31,5 +31,5 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
       user: user,
     };
-  }
+  }*/
 }
