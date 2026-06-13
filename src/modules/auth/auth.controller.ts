@@ -22,14 +22,21 @@ export class AuthController {
     return this.usersService.create(registerDto);
   }
 
-    // NextAuth will call this endpoint from the frontend
+  // NextAuth will call this endpoint from the frontend
   @Post('verify-credentials')
   async verifyCredentials(@Body() loginDto: LoginDto) {
     const user = await this.authService.validateUser(loginDto.email, loginDto.password);
     if (!user) {
       throw new UnauthorizedException('Invalid email or password');
     }
-    // Return only the user object back to NextAuth. No token generation here!
-    return user;
+    const accessToken = this.authService.generateToken(user);
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+      phone: user.phone,
+      accessToken,
+    };
   }
 }

@@ -27,8 +27,7 @@ export class BookingsController {
   @UseGuards(RolesGuard)
   @Roles(UserRole.ADMIN, UserRole.EMPLOYEE)
   findAll(@Request() req) {
-    const query = req.user.role === UserRole.EMPLOYEE ? { status: BookingStatus.CONFIRMED } : {};
-    return this.bookingsService.findAll(query);
+    return this.bookingsService.findAll({});
   }
 
   @Get(':id')

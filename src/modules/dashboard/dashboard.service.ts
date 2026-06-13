@@ -19,14 +19,12 @@ export class DashboardService {
       this.turfsService.findAll(),
     ]);
 
-    const recentBookings = await this.bookingsService.findAll({ take: 10 });
-
     return {
       totalBookings: allBookings.length,
       totalUsers: totalUsers.length,
       totalTurfs: totalTurfs.length,
       totalRevenue: allBookings.reduce((sum, b) => sum + Number(b.totalAmount), 0),
-      recentBookings: recentBookings.slice(0, 10),
+      recentBookings: allBookings.slice(0, 10),
     };
   }
 
